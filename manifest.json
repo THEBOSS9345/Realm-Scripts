@@ -1,0 +1,52 @@
+{
+    "format_version": 2,
+    "header": {
+        "name": "Scripts Api Pack",
+        "description": "",
+        "uuid": "9ebec12a-d485-4042-af2b-328056eb7519",
+        "version": [
+            2,
+            0,
+            0
+        ],
+        "min_engine_version": [
+            1,
+            19,
+            60
+        ]
+    },
+    "modules": [
+        {
+            "description": "make it work on realm",
+            "type": "data",
+            "uuid": "db7fefc8-5588-4037-a73b-e55c5e7249cc",
+            "version": [
+                2,
+                0,
+                0
+            ]
+        },
+        {
+            "description": "Gametest Framework Needs To Be Enabled",
+            "language": "javascript",
+            "type": "script",
+            "uuid": "f0a9b0ee-a4fb-487e-8fb1-f2f470be450a",
+            "version": [
+                2,
+                0,
+                0
+            ],
+            "entry": "scripts/index.js"
+        }
+    ],
+    "dependencies": [
+        {
+            "module_name": "@minecraft/server",
+            "version": "1.3.0-beta"
+        },
+        {
+            "module_name": "@minecraft/server-ui",
+            "version": "1.1.0-beta"
+        }
+    ]
+}
