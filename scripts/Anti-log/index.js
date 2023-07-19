@@ -73,10 +73,9 @@ const inventory = (player) => {
 
 const eventHandlers = {
   entityHitEntity: ({ damagingEntity: entity, hitEntity }) => {
-    if (entity?.typeId?.includes('minecraft:player')) {
+    if (entity?.typeId?.includes('minecraft:player') && hitEntity?.typeId.includes('minecraft:player')) {
       database.set(`attack ${entity?.name}`, 11);
-      // && hitEntity?.typeId.includes('minecraft:player')
-      // database.set(`attack ${hitEntity?.name}`, 11);
+      database.set(`attack ${hitEntity?.name}`, 11);
     }
   },
   playerLeave: ({ playerName }) => {
@@ -145,16 +144,6 @@ world.afterEvents.itemUse.subscribe(({ source: player, itemStack: item }) => {
     })
   }
 })
-
-// system.runInterval(() => {
-//   for (const player of world.getAllPlayers()) {
-//     const inv = player.getComponent('inventory')
-//       for (let i = 0; i < inv.container.size; i++) {
-//         const item = inv.container.getItem(0)
-//        console.warn(JSON.stringify(storeItem(item)))
-//       }
-//   }
-// })
 
 
 function storeItem(item) {
