@@ -121,31 +121,6 @@ Object.entries(eventHandlers).forEach(([eventName, eventHandler]) => {
 system.runInterval(handleInterval, 20);
 system.runInterval(handleInterval2);
 
-world.afterEvents.itemUse.subscribe(({ source: player, itemStack: item }) => {
-  if (item?.typeId?.includes('minecraft:dirt')) {
-    system.run(() => {
-      new ActionFormData()
-        .title('Shop UI Menu')
-        .body(`§7Welcome to SHOPS!\n\n§6-------------------------------\n\nuser information:\nName: §b${player.name}\n\n§6-------------------------------`)
-        .button('Building blocks', 'textures/blocks/brick')
-        .button('Natural Blocks', 'textures/blocks/grass_side_carried')
-        .button('Functional Blocks', 'textures/blocks/crafting_table_front')
-        .button('Redstone Tools', 'textures/items/redstone_dust')
-        .button('Equipment and Utilities', 'textures/items/diamond_axe')
-        .button('Food and Farms', 'textures/items/apple_golden')
-        .button('Dyes', 'textures/items/dye_powder_red')
-        .button('Minerals', 'textures/items/diamond')
-        .button('Mob Drops', 'textures/items/leather')
-        .button('Spawn Eggs', 'textures/items/egg_chicken')
-        .button('Potions', 'textures/items/potion_bottle_heal')
-        .button('Enchantments', 'textures/items/book_enchanted')
-        .button('Kits', 'textures/ui/icon_armor')
-        .show(player)
-    })
-  }
-})
-
-
 function storeItem(item) {
   const itemData = {
     enchantments: [],
