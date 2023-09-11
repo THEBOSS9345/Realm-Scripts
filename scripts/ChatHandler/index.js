@@ -37,15 +37,11 @@ export class ChatCommand {
             const cmdRegex = new RegExp(`^${command}(\\s|$)`, 'i');
             return cmdRegex.test(commandString) || (alias && alias.some(a => new RegExp(`^${a}(\\s|$)`, 'i').test(commandString)));
         });
-
         if (matchedCommand && (!matchedCommand.permissions || this.hasPermission(matchedCommand.permissions, player))) {
             const args = commandString.slice(matchedCommand.command.length).trim();
             matchedCommand.callback(player, args, commandString);
-        } else {
-            player.sendMessage(`§cUnknown command: ${commandString}, Please check that the command exists and that you have permission to use it.`);
-        }
+        } else player.sendMessage(`§cUnknown command: ${commandString}, Please check that the command exists and that you have permission to use it.`);
     }
-
     /**
      * Check if a player has the required permissions.
      * 
