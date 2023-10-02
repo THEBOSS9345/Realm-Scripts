@@ -1,12 +1,6 @@
 import { world, system, Vector } from '@minecraft/server';
 
-system.runInterval(() => {
-  for (const player of world.getAllPlayers()) {
-    if (isBlockOn(player, 'minecraft:beacon')) {
-      sell(player);
-    }
-  }
-});
+const scoreboard = 'Money'
 
 const items = new Map([
   ['dirt', 66],
@@ -14,12 +8,18 @@ const items = new Map([
   ['smooth_stone', 1]
 ]);
 
+system.runInterval(() => {
+  for (const player of world.getAllPlayers()) {
+    if (isBlockOn(player, 'minecraft:beacon')) return sell(player);   
+  }
+});
+
 function sell(player) {
   const inv = inventory(player);
   const item = inv.items.find(i => items.has(i.name));
   if (!item) return;
   const totalPrice = item.amount * items.get(item.name);
-  player.runCommandAsync(`scoreboard players add @s money ${totalPrice}`);
+  player.runCommandAsync(`scoreboard players add @s ${scoreboard} ${totalPrice}`);
   player.runCommandAsync(`clear @s ${item.name} 0 ${item.amount}`);
   player.sendMessage(`§aYou sold ${item.amount} ${item.name} for ${totalPrice} cash!`);
 }
