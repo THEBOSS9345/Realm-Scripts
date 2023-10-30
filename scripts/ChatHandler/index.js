@@ -19,10 +19,7 @@ Object.defineProperty(globalThis, 'ChatCommand', {
                     if (!message.startsWith(prefix)) return;
                     data.cancel = true;
                     const commandString = message.slice(prefix.length).trim();
-                    const matchedCommand = commands.find(({ command, alias }) => {
-                        const cmdRegex = new RegExp(`^${command}(\\s|$)`, 'i');
-                        return cmdRegex.test(commandString) || (alias && alias.some(a => new RegExp(`^${a}(\\s|$)`, 'i').test(commandString)));
-                    });
+                    const matchedCommand = commands.find(({ command, alias }) => new RegExp(`^${command}(\\s|$)`, 'i').test(commandString) || (alias && alias.some(a => new RegExp(`^${a}(\\s|$)`, 'i').test(commandString))));
                     if (matchedCommand && (matchedCommand.permissions.length === 0 || hasPermission(matchedCommand.permissions, player))) {
                         const args = commandString.slice(matchedCommand.command.length).trim();
                         matchedCommand.callback(player, args, commandString);
