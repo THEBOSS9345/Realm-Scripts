@@ -11,6 +11,7 @@ system.runInterval(() => {
     world.getPlayers({ tag: 'incombat' }).map((player) => {
         if (!CombatDatabase[player.id]) return delete CombatDatabase[player.id], player.removeTag('incombat')
         if (!CombatDatabase[player.id] || CombatDatabase[player.id].hasOwnProperty('clear')) return;
+        player.onScreenDisplay.setActionBar(`§cCombat Logging:§7 ${getTime(CombatDatabase[player.id].timer).seconds < 0 ? 0 : getTime(CombatDatabase[player.id].timer).seconds}s`)
         if (hasTimerReachedEnd(CombatDatabase[player.id].timer.targetDate)) {
             delete CombatDatabase[player.id]
             player.sendMessage('§aYou Are Now Out Of Combat')
@@ -66,3 +67,18 @@ export function hasTimerReachedEnd(targetDate) {
     if (!(targetDate instanceof Date)) targetDate = new Date(targetDate);
     return Date.now() >= targetDate;
 }
+
+export const formatTime = (milliseconds) => ({
+    days: Math.floor(milliseconds / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((milliseconds / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((milliseconds / (1000 * 60)) % 60),
+    seconds: Math.floor((milliseconds / 1000) % 60),
+});
+
+export const getTime = (timerInfo) => {
+    const timeRemaining = new Date(timerInfo.targetDate).getTime() - Date.now();
+    return formatTime(timeRemaining);
+};
+
+
+console.warn('§cCombat loging:§7 is Enabled!')
